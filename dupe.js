@@ -12,6 +12,9 @@ class Stats {
 
         // print stat in 30Hz
         setInterval(() => { this.stat() }, 1000 / 30)
+
+        // check progress every second
+        setInterval(() => { this.checkProgress() }, 1000)
     }
 
     // Receive a new hash
@@ -25,9 +28,12 @@ class Stats {
     }
 
     // Log statistics in console
-    // Exit program when all works are done
     stat() {
         process.stdout.write(`Progress: ${Math.floor(100 * this.hashes.length / (this.hashes.length + this.pending))}% | Hashed: ${this.hashes.length} | Dupe: ${this.dupes.length} | Pending: ${this.pending}\r`)
+    }
+
+    // Exit once all files are hashed
+    checkProgress() {
         if (this.started && this.pending === 0) {
             console.log();
             process.exit(0)
@@ -69,6 +75,9 @@ const hasher = path => {
         stat.push(path, hash.digest("hex"))
         stat.pending -= 1
         stream.close()
+    })
+    stream.on("error", err => {
+        stat.pending -= 1 // file not readable, probably just a symlink
     })
 }
 
