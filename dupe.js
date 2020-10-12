@@ -1,5 +1,6 @@
 const fs = require("fs")
 const crypto = require("crypto")
+const readline = require("readline")
 
 // A statistics helper class
 class Stats {
@@ -29,7 +30,8 @@ class Stats {
 
     // Log statistics in console
     stat() {
-        process.stdout.write(`Progress: ${Math.floor(100 * this.hashes.length / (this.hashes.length + this.pending))}% | Hashed: ${this.hashes.length} | Dupe: ${this.dupes.length} | Pending: ${this.pending}\r`)
+        process.stdout.write(`\rProgress: ${Math.floor(100 * this.hashes.length / (this.hashes.length + this.pending))}% | Hashed: ${this.hashes.length} | Dupe: ${this.dupes.length} | Pending: ${this.pending}\r`)
+        readline.clearLine(process.stdout, 1) // clear previous line
     }
 
     // Exit once all files are hashed
