@@ -30,7 +30,7 @@ class Stats {
 
     // Log statistics in console
     stat() {
-        process.stdout.write(`\rProgress: ${Math.floor(100 * this.hashes.length / (this.hashes.length + this.pending))}% | Hashed: ${this.hashes.length} | Dupe: ${this.dupes.length} | Pending: ${this.pending}\r`)
+        process.stdout.write(`\rProgress: ${Math.floor(100 * this.hashes.length / (this.hashes.length + this.pending))}% | Hashed: ${this.hashes.length} | Dupe: ${this.dupes.length} | Pending: ${this.pending}`)
         readline.clearLine(process.stdout, 1) // clear previous line
     }
 
