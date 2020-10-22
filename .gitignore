@@ -105,3 +105,4 @@ dist
 
 # dupe.js output
 dupe.txt
+.DS_Store
