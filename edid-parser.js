@@ -91,11 +91,11 @@ const getSupportedFeatures = data => {
     const bits = pad(data.toString(2))
 
     return `
-    DPMS Standby: \t${bits[0] === 1}
-    DPMS Suspend: \t${bits[1] === 1}
-    DPMS Active-off: \t${bits[2] === 1}
-    Display Type: \t${getDisplayType(bits.slice(3, 5))}
-    sRGB Colour Space: \t${bits[5] === 1}`
+  - DPMS Standby: \t${bits[0] === 1}
+  - DPMS Suspend: \t${bits[1] === 1}
+  - DPMS Active-off: \t${bits[2] === 1}
+  - Display Type: \t${getDisplayType(bits.slice(3, 5))}
+  - sRGB Colour Space: \t${bits[5] === 1}`
 }
 
 const getDisplayType = bits => {
