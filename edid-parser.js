@@ -116,6 +116,34 @@ const getDisplayType = bits => {
     }
 }
 
+const CommonTimings = ["720×400 @ 70 Hz (VGA)"
+    , "720×400 @ 88 Hz (XGA)"
+    , "640×480 @ 60 Hz (VGA)"
+    , "640×480 @ 67 Hz (Apple Macintosh II)"
+    , "640×480 @ 72 Hz"
+    , "640×480 @ 75 Hz"
+    , "800×600 @ 56 Hz"
+    , "800×600 @ 60 Hz"
+    , "800×600 @ 72 Hz"
+    , "800×600 @ 75 Hz"
+    , "832×624 @ 75 Hz (Apple Macintosh II)"
+    , "1024×768 @ 87 Hz, interlaced (1024×768i)"
+    , "1024×768 @ 60 Hz"
+    , "1024×768 @ 70 Hz"
+    , "1024×768 @ 75 Hz"
+    , "1280×1024 @ 75 Hz"
+    , "1152x870 @ 75 Hz (Apple Macintosh II)"
+    , "Other manufacturer-specific display modes"]
+
+const getCommonTimings = data => {
+    const bits = data.reduce((sum, cur) => sum + pad(cur.toString(2)), "")
+    const supportedTimings = []
+    for (let i = 0; i < bits.length; i++) {
+        if (bits[i] === "1") supportedTimings.push(CommonTimings[i])
+    }
+    return supportedTimings.length === 0 ? "\tNot found" : "\n" + supportedTimings.map(timing => `  - ${timing}`).join("\n")
+}
+
 console.log(`
 Vendor ID: \t\t${EDID.slice(8, 10).toString("hex")}
 Product ID: \t\t${EDID.slice(10, 12).reverse().toString("hex")}
@@ -126,4 +154,5 @@ Video Interface: \t${getVideoInput(EDID[20])}
 Screen Size: \t\t${EDID[21]}✕${EDID[22]} cm
 Gamma (Computer): \t${calcGamma(EDID[23])}
 Supported Features: ${getSupportedFeatures(EDID[24])}
+Common Timings: ${getCommonTimings(EDID.slice(35, 38))}
 `)
