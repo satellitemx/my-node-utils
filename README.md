@@ -35,4 +35,4 @@ Execute `sudo find /sys | grep -i edid` to get EDID files of all connected monit
 
 #### Windows
 
-Please consult the utility softwares that comes with your graphics card driver. 
+Please consult the utility softwares that come with your graphics card driver. 
