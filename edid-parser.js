@@ -22,6 +22,10 @@ const Information = {
 
 // EDID 1.4 format from https://en.wikipedia.org/wiki/Extended_Display_Identification_Data
 
+// Helper functions
+
+const pad = num => String(num).padStart(8, "0") // https://stackoverflow.com/questions/2998784/how-to-output-numbers-with-leading-zeros-in-javascript
+
 const getManDate = data => {
     return `Week ${data[0]}, ${1990 + data[1]}`
 }
@@ -42,7 +46,7 @@ const getEDIDRevision = data => {
 }
 
 const getVideoInput = data => {
-    const bits = data.toString(2)
+    const bits = pad(data.toString(2))
     if (bits[0] === 0) {
         Information.digital = false
         return "Analogue, detail not available yet. "
@@ -84,7 +88,7 @@ const calcGamma = data => {
 }
 
 const getSupportedFeatures = data => {
-    const bits = data.toString(2)
+    const bits = pad(data.toString(2))
 
     return `
     DPMS Standby: \t${bits[0] === 1}
